@@ -1,0 +1,25 @@
+{
+  "policy": "Official names and fan-created depictions are allowed for this collaboration build. Do not add copied, cropped, traced, or extracted official art assets.",
+  "assets": [],
+  "prompts": [
+    {
+      "id": "terara-placeholder",
+      "purpose": "Future AI fanwork portrait placeholder for 忒拉拉",
+      "status": "not-generated"
+    },
+    {
+      "id": "kibo-placeholders",
+      "purpose": "Future AI fanwork placeholders for 小芽狐 and 霜刃狼",
+      "status": "not-generated"
+    },
+    {
+      "id": "enemy-placeholders",
+      "purpose": "Future AI fanwork placeholders for 菜鸡、炎晶甲、幻蝶、怯影之翼",
+      "status": "not-generated"
+    }
+  ],
+  "references": [
+    "https://azurpromilia.manjuu.com/zh/home/",
+    "https://wiki.biligame.com/ap/"
+  ]
+}
