@@ -13,6 +13,7 @@ A desktop vertical slice for **蓝色星原：秘牌回响**, built with Vite, R
 - Combat: 3 energy per turn, draw 5 cards, enemy intent preview, one command card per turn, companion HP and elemental synergy.
 - UI direction: Slay-the-Spire-like readable desktop structure, with a large Phaser battlefield, fixed bottom hand, compact right rail, companion choice panels, rewards, and result flow.
 - React owns HUD, cards, route, rewards, and flow state. Phaser renders the battlefield from read-only combat snapshots.
+- Current visual pass: allied units are mirrored at render time to face right, enemies face left, and combat now includes entrance motion, hit feedback, floating numbers, status flashes, shield/heal effects, and clearer playable/disabled card states.
 
 ## Authorization And Assets
 

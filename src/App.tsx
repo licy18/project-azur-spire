@@ -21,7 +21,8 @@ import './styles.css';
 export type Screen = 'companion' | 'combat' | 'reward' | 'result';
 
 function getScene(game: Phaser.Game | null) {
-  return game?.scene.getScene('BattleScene') as BattleScene | undefined;
+  const scene = game?.scene.getScene('BattleScene') as BattleScene | undefined;
+  return scene ?? (window as typeof window & { __battleScene?: BattleScene }).__battleScene;
 }
 
 export function App() {
@@ -34,6 +35,19 @@ export function App() {
 
   const currentNode = getCurrentNode(run);
   const rewards = useMemo(() => (screen === 'reward' ? getRewardOptions(run) : []), [run, screen]);
+
+  function syncCombatToScene(nextCombat: CombatState) {
+    const view = toCombatViewModel(nextCombat);
+    getScene(gameRef.current)?.renderCombatView(view);
+    window.requestAnimationFrame(() => getScene(gameRef.current)?.renderCombatView(view));
+    window.setTimeout(() => getScene(gameRef.current)?.renderCombatView(view), 80);
+  }
+
+  function clearScene() {
+    getScene(gameRef.current)?.renderCombatView(null);
+    window.requestAnimationFrame(() => getScene(gameRef.current)?.renderCombatView(null));
+    window.setTimeout(() => getScene(gameRef.current)?.renderCombatView(null), 80);
+  }
 
   useEffect(() => {
     if (!gameParentRef.current || gameRef.current) {
@@ -49,8 +63,11 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const scene = getScene(gameRef.current);
-    scene?.renderCombatView(combat ? toCombatViewModel(combat) : null);
+    if (!combat) {
+      return;
+    }
+
+    syncCombatToScene(combat);
   }, [combat]);
 
   function beginCombat(companionId: CompanionId) {
@@ -58,6 +75,7 @@ export function App() {
     const nextCombat = startCombat(selectedRun, currentNode.id);
     setRun(selectedRun);
     setCombat(nextCombat);
+    syncCombatToScene(nextCombat);
     setScreen('combat');
   }
 
@@ -66,7 +84,9 @@ export function App() {
       return;
     }
 
-    setCombat(playCard(combat, cardInstanceId, combat.enemies[0]?.id));
+    const nextCombat = playCard(combat, cardInstanceId, combat.enemies[0]?.id);
+    setCombat(nextCombat);
+    syncCombatToScene(nextCombat);
   }
 
   function handleEndTurn() {
@@ -74,7 +94,9 @@ export function App() {
       return;
     }
 
-    setCombat(endTurn(combat));
+    const nextCombat = endTurn(combat);
+    setCombat(nextCombat);
+    syncCombatToScene(nextCombat);
   }
 
   function continueAfterCombat() {
@@ -98,6 +120,7 @@ export function App() {
     }
 
     setCombat(null);
+    clearScene();
     setScreen('reward');
   }
 
@@ -109,6 +132,7 @@ export function App() {
   function restartRun() {
     setRun(createInitialRun(`project-azur-spire-${Date.now()}`));
     setCombat(null);
+    clearScene();
     setResultText('');
     setScreen('companion');
   }

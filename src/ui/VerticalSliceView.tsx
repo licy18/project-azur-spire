@@ -141,8 +141,14 @@ function PlayArea(props: VerticalSliceViewProps) {
   const { combat, screen } = props;
 
   if (screen !== 'combat' || !combat) {
-    return <div className="hand-zone idle-hand">选择伙伴后开始本场遭遇。</div>;
+    const idleText = screen === 'reward' ? '选择奖励后继续旅途。' : screen === 'result' ? '本次旅谣已经结算。' : '选择伙伴后开始本场遭遇。';
+    return <div className="hand-zone idle-hand">{idleText}</div>;
   }
+
+  const playableCards = combat.hand.filter((cardInstance) => {
+    const card = getCardDefinition(cardInstance);
+    return combat.status === 'active' && combat.energy >= card.cost && !(card.type === 'command' && commandCompanion[card.id] !== combat.companion.definitionId) && !(card.type === 'command' && (combat.commandUsedThisTurn || combat.companion.hp <= 0));
+  });
 
   return (
     <section className="hand-zone" aria-label="Hand cards">
@@ -156,7 +162,7 @@ function PlayArea(props: VerticalSliceViewProps) {
           <Clock3 size={15} />
           第 {combat.turn} 回合
         </div>
-        <button className="end-turn-button" type="button" onClick={props.onEndTurn} disabled={combat.status !== 'active'}>
+        <button className={`end-turn-button ${playableCards.length === 0 || combat.energy === 0 ? 'urgent' : ''}`} type="button" onClick={props.onEndTurn} disabled={combat.status !== 'active'}>
           结束回合
           <ChevronRight size={17} />
         </button>
@@ -165,24 +171,26 @@ function PlayArea(props: VerticalSliceViewProps) {
       <div className="hand-row">
         {combat.hand.map((cardInstance) => {
           const card = getCardDefinition(cardInstance);
-          const disabled =
-            combat.status !== 'active' ||
-            combat.energy < card.cost ||
-            (card.type === 'command' && commandCompanion[card.id] !== combat.companion.definitionId) ||
-            (card.type === 'command' && (combat.commandUsedThisTurn || combat.companion.hp <= 0));
+          const commandMismatch = card.type === 'command' && commandCompanion[card.id] !== combat.companion.definitionId;
+          const commandUnavailable = card.type === 'command' && (combat.commandUsedThisTurn || combat.companion.hp <= 0);
+          const lowEnergy = combat.energy < card.cost;
+          const disabled = combat.status !== 'active' || lowEnergy || commandMismatch || commandUnavailable;
+          const disabledReason = lowEnergy ? '能量不足' : commandMismatch ? '伙伴不匹配' : commandUnavailable ? '指令不可用' : '';
 
           return (
             <button
               key={cardInstance.instanceId}
-              className={`hand-card ${card.type}`}
+              className={`hand-card ${card.type} ${disabled ? 'is-disabled' : 'is-playable'} ${lowEnergy ? 'low-energy' : ''} ${commandMismatch ? 'wrong-companion' : ''} ${commandUnavailable ? 'command-locked' : ''}`}
               type="button"
               disabled={disabled}
+              title={disabledReason}
               onClick={() => props.onPlayCard(cardInstance.instanceId)}
             >
               <span className="card-cost">{card.cost}</span>
               <span className="card-type">{cardIcon(card)} {card.type === 'attack' ? '攻击' : card.type === 'command' ? '指令' : '技能'}</span>
               <strong>{card.name}</strong>
               <small>{card.description}</small>
+              {disabledReason && <em>{disabledReason}</em>}
             </button>
           );
         })}
