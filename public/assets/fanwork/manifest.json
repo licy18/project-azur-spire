@@ -1,25 +1,71 @@
 {
   "policy": "Official names and fan-created depictions are allowed for this collaboration build. Do not add copied, cropped, traced, or extracted official art assets.",
-  "assets": [],
-  "prompts": [
-    {
-      "id": "terara-placeholder",
-      "purpose": "Future AI fanwork portrait placeholder for 忒拉拉",
-      "status": "not-generated"
-    },
-    {
-      "id": "kibo-placeholders",
-      "purpose": "Future AI fanwork placeholders for 小芽狐 and 霜刃狼",
-      "status": "not-generated"
-    },
-    {
-      "id": "enemy-placeholders",
-      "purpose": "Future AI fanwork placeholders for 菜鸡、炎晶甲、幻蝶、怯影之翼",
-      "status": "not-generated"
-    }
-  ],
   "references": [
     "https://azurpromilia.manjuu.com/zh/home/",
     "https://wiki.biligame.com/ap/"
-  ]
+  ],
+  "assets": [
+    {
+      "id": "battlefield-starry-wilds",
+      "file": "background-starry-wilds.png",
+      "purpose": "Phaser battle background",
+      "source": "AI-generated fanwork placeholder",
+      "notes": "Original starry wilderness battlefield. No official art used."
+    },
+    {
+      "id": "terara",
+      "file": "terara.png",
+      "sourceFile": "source/terara-chroma.png",
+      "purpose": "Player battlefield unit",
+      "source": "AI-generated fanwork cutout using official character image as identity reference",
+      "notes": "Official reference used only for identity cues. Spear banner removed by user preference."
+    },
+    {
+      "id": "xiaoyahu",
+      "file": "xiaoyahu.png",
+      "sourceFile": "source/xiaoyahu-chroma.png",
+      "purpose": "Companion unit and companion selection card",
+      "source": "AI-generated fanwork cutout using official Wiki image as identity reference"
+    },
+    {
+      "id": "shuangrenlang",
+      "file": "shuangrenlang.png",
+      "sourceFile": "source/shuangrenlang-chroma.png",
+      "purpose": "Companion unit and companion selection card",
+      "source": "AI-generated fanwork cutout using corrected official Wiki evolved-form image as identity reference"
+    },
+    {
+      "id": "caiji",
+      "file": "caiji.png",
+      "sourceFile": "source/caiji-chroma.png",
+      "purpose": "Normal enemy unit",
+      "source": "AI-generated fanwork cutout using corrected official Wiki current-form image as identity reference"
+    },
+    {
+      "id": "yanjingjia",
+      "file": "yanjingjia.png",
+      "sourceFile": "source/yanjingjia-chroma.png",
+      "purpose": "Normal enemy unit",
+      "source": "AI-generated fanwork cutout using corrected official Wiki current-form image as identity reference"
+    },
+    {
+      "id": "huandie",
+      "file": "huandie.png",
+      "sourceFile": "source/huandie-chroma.png",
+      "purpose": "Normal enemy unit",
+      "source": "AI-generated fanwork cutout using corrected official Wiki current-form image as identity reference"
+    },
+    {
+      "id": "qieyingzhiyi",
+      "file": "qieyingzhiyi.png",
+      "sourceFile": "source/qieyingzhiyi-chroma.png",
+      "purpose": "Boss enemy unit",
+      "source": "AI-generated fanwork cutout using user-provided official reference image as identity reference"
+    }
+  ],
+  "promptStyle": "Hand-painted roguelike deckbuilder battle illustration, rough painterly brushwork, darker inked contour lines, textured shading, closer to Slay-the-Spire-like battle illustration language without copying any specific game asset.",
+  "chromaKey": {
+    "background": "#ff00ff",
+    "method": "remove_chroma_key.py with border auto-key, soft matte, and despill"
+  }
 }

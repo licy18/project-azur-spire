@@ -2,7 +2,7 @@
 
 English | [中文](README.zh-CN.md)
 
-A desktop vertical slice for **蓝色星原：秘牌回响**, built with Vite, React, TypeScript, Phaser 3, and Electron under the project name **Project Azur Spire**. This prototype explores a card-battle loop inspired by deckbuilding roguelikes, using officially authorized Azur Promilia names and fan-created placeholder depictions.
+A desktop vertical slice for **蓝色星原：秘牌回响**, built with Vite, React, TypeScript, Phaser 3, and Electron under the project name **Project Azur Spire**. This prototype explores a companion-synergy card battle loop inspired by deckbuilding roguelikes, using officially authorized Azur Promilia names and fan-created placeholder depictions.
 
 ## Prototype
 
@@ -11,6 +11,7 @@ A desktop vertical slice for **蓝色星原：秘牌回响**, built with Vite, R
 - Companions: 小芽狐 and 霜刃狼. One companion is chosen before each battle.
 - Route: 菜鸡 -> 炎晶甲 -> 幻蝶 -> 怯影之翼.
 - Combat: 3 energy per turn, draw 5 cards, enemy intent preview, one command card per turn, companion HP and elemental synergy.
+- UI direction: Slay-the-Spire-like readable desktop structure, with a large Phaser battlefield, fixed bottom hand, compact right rail, companion choice panels, rewards, and result flow.
 - React owns HUD, cards, route, rewards, and flow state. Phaser renders the battlefield from read-only combat snapshots.
 
 ## Authorization And Assets
@@ -22,7 +23,7 @@ Reference priority:
 - [Official Chinese website](https://azurpromilia.manjuu.com/zh/home/)
 - [Official Chinese Wiki / BWIKI](https://wiki.biligame.com/ap/)
 
-Fanwork asset tracking lives in `public/assets/fanwork/manifest.json`.
+Fanwork asset tracking lives in `public/assets/fanwork/manifest.json`. Current unit cutouts include Terara, 小芽狐, 霜刃狼, 菜鸡, 炎晶甲, 幻蝶, and a regenerated 怯影之翼 boss image based on the user-provided official reference. Official reference images are not stored in the project.
 
 ## Scripts
 
@@ -57,7 +58,8 @@ electron/
   main.ts                 Electron main process
   preload.ts              Isolated preload bridge
 src/
-  App.tsx                 React vertical-slice flow and HUD
+  App.tsx                 React state container
+  ui/VerticalSliceView.tsx Desktop flow, HUD, cards, rail, rewards, and result UI
   game/
     Game.ts               Phaser game bootstrapping
     core/                 Pure TypeScript run/combat rules and tests

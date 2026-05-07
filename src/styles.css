@@ -1,6 +1,6 @@
 :root {
   color: #f8fafc;
-  background: #07111f;
+  background: #130f1a;
   font-family:
     Inter, "Microsoft YaHei", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -35,64 +35,95 @@ button {
   width: 100%;
   height: 100%;
   min-width: 320px;
-  padding: 18px;
+  padding: 14px;
   background:
-    linear-gradient(135deg, rgba(45, 212, 191, 0.18), transparent 36%),
-    linear-gradient(315deg, rgba(99, 102, 241, 0.16), transparent 34%),
-    #07111f;
+    radial-gradient(circle at 18% 12%, rgba(245, 158, 11, 0.18), transparent 28%),
+    radial-gradient(circle at 74% 24%, rgba(14, 165, 233, 0.16), transparent 30%),
+    linear-gradient(180deg, #1b1322, #0f1018 54%, #171016);
 }
 
-.game-stage {
+.game-frame {
+  position: relative;
   display: grid;
-  grid-template-rows: 44px minmax(0, 1fr);
-  width: 100%;
-  height: 100%;
+  grid-template-rows: 58px minmax(0, 1fr);
   min-height: 0;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.24);
+  border: 2px solid rgba(248, 197, 112, 0.28);
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.9);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+  background: rgba(12, 10, 16, 0.92);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52);
 }
 
-.game-toolbar {
+.top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   min-width: 0;
-  padding: 0 16px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
-  color: #cbd5e1;
-  font-size: 13px;
-  line-height: 1;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(248, 197, 112, 0.22);
+  background: linear-gradient(90deg, rgba(30, 24, 33, 0.96), rgba(15, 23, 42, 0.88));
 }
 
-.game-toolbar span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.top-bar h1 {
+  margin: 2px 0 0;
+  color: #fff7ed;
+  font-size: 20px;
+  letter-spacing: 0;
 }
 
-.play-layout {
+.eyebrow {
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.top-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.top-status span,
+.turn-chip,
+.relic-list span,
+.mini-deck span {
+  border: 1px solid rgba(248, 197, 112, 0.2);
+  border-radius: 6px;
+  color: #e7d6bd;
+  background: rgba(2, 6, 23, 0.38);
+}
+
+.top-status span {
+  padding: 6px 9px;
+  font-size: 12px;
+}
+
+.battle-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  grid-template-rows: minmax(0, 1fr) 188px 34px;
+  grid-template-columns: minmax(0, 1fr) 286px;
   gap: 12px;
   min-height: 0;
   padding: 12px;
 }
 
+.battle-column {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 188px;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+
 .game-container {
-  position: relative;
   display: grid;
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  border: 2px solid rgba(15, 23, 42, 0.8);
   border-radius: 8px;
-  background: #050816;
+  background: #020617;
 }
 
 .game-container canvas {
@@ -102,231 +133,287 @@ button {
   max-height: 100%;
 }
 
-.side-panel,
-.control-panel {
+.right-rail {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: 10px;
   min-width: 0;
   min-height: 0;
 }
 
-.side-panel {
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 12px;
-}
-
-.route-panel,
-.run-panel,
-.control-panel,
-.deck-strip,
-.source-note {
-  border: 1px solid rgba(148, 163, 184, 0.18);
+.rail-panel,
+.hand-zone,
+.flow-card {
+  border: 1px solid rgba(248, 197, 112, 0.22);
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.72);
+  background:
+    linear-gradient(180deg, rgba(39, 31, 38, 0.94), rgba(16, 15, 22, 0.94)),
+    #171018;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.route-panel,
-.run-panel,
-.control-panel {
-  padding: 14px;
+.rail-panel {
+  min-width: 0;
+  padding: 12px;
 }
 
-.panel-heading,
-.section-title,
-.combat-topline,
-.stat-row {
+.panel-title,
+.stat-line,
+.combat-command-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
-.panel-heading span,
-.section-title span,
-.stat-row span,
-.combat-topline span {
-  color: #94a3b8;
+.panel-title span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #cbd5e1;
   font-size: 13px;
 }
 
-.panel-heading strong,
-.section-title strong,
-.stat-row strong,
-.combat-topline strong {
-  min-width: 0;
-  color: #e0f2fe;
-  font-size: 14px;
+.panel-title strong {
+  color: #fef3c7;
+  font-size: 12px;
+  text-align: right;
   overflow-wrap: anywhere;
 }
 
 .route-list {
   display: grid;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 7px;
+  margin-top: 10px;
 }
 
 .route-node {
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr) auto;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
   align-items: center;
   gap: 8px;
-  min-height: 48px;
-  padding: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  border-radius: 8px;
-  background: rgba(2, 6, 23, 0.32);
+  min-height: 38px;
+  padding: 7px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 7px;
+  background: rgba(2, 6, 23, 0.3);
 }
 
 .route-node.current {
-  border-color: rgba(45, 212, 191, 0.72);
-  background: rgba(20, 184, 166, 0.14);
+  border-color: rgba(251, 191, 36, 0.8);
+  background: rgba(120, 53, 15, 0.34);
 }
 
 .route-node.cleared {
   opacity: 0.72;
 }
 
-.route-node span,
-.route-node small {
-  color: #94a3b8;
-  font-size: 12px;
+.route-node span {
+  display: grid;
+  place-items: center;
+  color: #fbbf24;
 }
 
 .route-node strong {
   min-width: 0;
-  color: #f8fafc;
-  font-size: 15px;
+  color: #fff7ed;
+  font-size: 14px;
 }
 
-.run-panel {
-  display: grid;
-  gap: 10px;
+.route-node small,
+.stat-line span {
+  color: #94a3b8;
+  font-size: 11px;
 }
 
-.stat-row {
-  min-height: 28px;
-}
-
-.control-panel {
-  grid-column: 1 / 3;
-  display: grid;
-  align-content: stretch;
-  overflow: hidden;
-}
-
-.companion-select,
-.reward-panel,
-.combat-hud,
-.result-panel {
-  display: grid;
-  gap: 12px;
-  min-height: 0;
-}
-
-.companion-grid,
-.reward-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.companion-card,
-.reward-card,
-.hand-card,
-.combat-topline button,
-.combat-result button,
-.result-panel button {
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 8px;
-  color: #f8fafc;
-  background: rgba(2, 6, 23, 0.54);
-}
-
-.companion-card,
-.reward-card {
+.rail-stats {
   display: grid;
   gap: 8px;
-  min-height: 104px;
-  padding: 14px;
-  text-align: left;
+  margin-top: 11px;
+}
+
+.stat-line {
+  min-height: 24px;
+}
+
+.stat-line strong {
+  color: #e2e8f0;
+  font-size: 12px;
+  text-align: right;
+}
+
+.relic-list,
+.mini-deck {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.relic-list span,
+.mini-deck span {
+  padding: 5px 7px;
+  font-size: 11px;
+}
+
+.mini-deck span.attack {
+  border-color: rgba(248, 113, 113, 0.42);
+}
+
+.mini-deck span.skill {
+  border-color: rgba(56, 189, 248, 0.42);
+}
+
+.mini-deck span.command {
+  border-color: rgba(167, 139, 250, 0.48);
+}
+
+.hand-zone {
+  position: relative;
+  display: grid;
+  grid-template-rows: 38px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 0;
+  padding: 10px;
+}
+
+.idle-hand {
+  display: grid;
+  place-items: center;
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.energy-orb {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 4px;
+  min-width: 82px;
+  height: 38px;
+  padding: 0 11px;
+  border: 2px solid rgba(125, 211, 252, 0.55);
+  border-radius: 999px;
+  color: #e0f2fe;
+  background: radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.48), rgba(2, 6, 23, 0.78));
+}
+
+.energy-orb strong {
+  font-size: 20px;
+}
+
+.turn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.end-turn-button,
+.combat-result-banner button,
+.result-flow button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  border-radius: 7px;
+  color: #fff7ed;
+  background: linear-gradient(180deg, #92400e, #451a03);
   cursor: pointer;
 }
 
-.companion-card:hover,
-.reward-card:hover,
-.hand-card:hover:not(:disabled),
-.combat-topline button:hover:not(:disabled),
-.combat-result button:hover,
-.result-panel button:hover {
-  border-color: rgba(45, 212, 191, 0.68);
-  background: rgba(20, 184, 166, 0.18);
+.end-turn-button {
+  min-width: 116px;
 }
 
-.companion-card strong,
-.reward-card strong {
-  font-size: 17px;
-}
-
-.companion-card span,
-.reward-card span,
-.companion-card small,
-.reward-card small {
-  color: #cbd5e1;
-  line-height: 1.45;
-}
-
-.combat-topline {
-  grid-template-columns: auto minmax(0, 1fr) auto;
-}
-
-.combat-topline button,
-.combat-result button,
-.result-panel button {
-  min-height: 36px;
-  padding: 0 14px;
-  cursor: pointer;
-}
-
-.combat-topline button:disabled,
-.hand-card:disabled {
+.end-turn-button:disabled {
   cursor: not-allowed;
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
 .hand-row {
   display: grid;
   grid-template-columns: repeat(5, minmax(132px, 1fr));
   gap: 10px;
+  min-width: 0;
   overflow-x: auto;
-  padding-bottom: 3px;
+  padding-bottom: 2px;
 }
 
 .hand-card {
   position: relative;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: 8px;
-  min-height: 122px;
-  padding: 14px 12px 12px;
-  text-align: left;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 7px;
+  min-height: 126px;
+  padding: 12px 11px 11px;
+  border: 2px solid rgba(148, 163, 184, 0.22);
+  border-radius: 8px;
+  color: #f8fafc;
+  background: linear-gradient(180deg, rgba(30, 24, 33, 0.95), rgba(12, 10, 16, 0.95));
   cursor: pointer;
+  text-align: left;
+  transition: transform 140ms ease, border-color 140ms ease, filter 140ms ease;
+}
+
+.hand-card:hover:not(:disabled) {
+  transform: translateY(-7px);
+  filter: brightness(1.08);
+}
+
+.hand-card:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.3);
+  opacity: 0.45;
 }
 
 .hand-card.attack {
-  border-color: rgba(248, 113, 113, 0.34);
+  border-color: rgba(248, 113, 113, 0.52);
 }
 
 .hand-card.skill {
-  border-color: rgba(56, 189, 248, 0.34);
+  border-color: rgba(56, 189, 248, 0.52);
 }
 
 .hand-card.command {
-  border-color: rgba(167, 139, 250, 0.42);
+  border-color: rgba(167, 139, 250, 0.62);
+}
+
+.card-cost {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 2px solid rgba(224, 242, 254, 0.74);
+  border-radius: 50%;
+  color: #082f49;
+  background: #7dd3fc;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.card-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #fef3c7;
+  background: rgba(2, 6, 23, 0.32);
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .hand-card strong {
-  padding-right: 26px;
-  color: #f8fafc;
-  font-size: 15px;
+  padding-right: 34px;
+  font-size: 16px;
 }
 
 .hand-card small {
@@ -335,109 +422,171 @@ button {
   line-height: 1.42;
 }
 
-.card-cost {
+.combat-result-banner {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  width: 24px;
-  height: 24px;
-  place-items: center;
-  border-radius: 50%;
-  color: #082f49;
-  background: #7dd3fc;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.combat-result {
+  right: 12px;
+  bottom: 12px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid rgba(251, 191, 36, 0.42);
+  border-radius: 8px;
+  background: rgba(2, 6, 23, 0.82);
 }
 
-.combat-result strong {
+.combat-result-banner strong {
   color: #fde68a;
 }
 
-.result-panel {
+.flow-overlay {
+  position: absolute;
+  inset: 70px 310px 212px 24px;
+  display: grid;
   place-items: center;
-  text-align: center;
+  pointer-events: none;
 }
 
-.result-panel strong {
-  color: #e0f2fe;
+.flow-card {
+  width: min(760px, 100%);
+  max-height: 100%;
+  overflow: hidden;
+  padding: 18px;
+  pointer-events: auto;
+}
+
+.flow-heading {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.flow-heading h2,
+.result-flow h2 {
+  margin: 0;
+  color: #fff7ed;
+  font-size: 26px;
+}
+
+.flow-heading p,
+.result-flow p {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+.companion-grid,
+.reward-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.reward-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.companion-card,
+.reward-card {
+  border: 1px solid rgba(248, 197, 112, 0.22);
+  border-radius: 8px;
+  color: #f8fafc;
+  background: linear-gradient(180deg, rgba(30, 24, 33, 0.94), rgba(2, 6, 23, 0.72));
+  cursor: pointer;
+  text-align: left;
+}
+
+.companion-card {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  min-height: 188px;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.companion-card img {
+  width: 180px;
+  height: 166px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 20px rgba(0, 0, 0, 0.42));
+}
+
+.companion-card strong,
+.reward-card strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #fff7ed;
   font-size: 20px;
 }
 
-.deck-strip {
-  grid-column: 1 / 3;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  overflow-x: auto;
-  padding: 0 10px;
+.companion-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #fbbf24;
+  font-weight: 800;
 }
 
-.deck-strip span {
-  flex: 0 0 auto;
-  padding: 5px 8px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  border-radius: 6px;
+.companion-card small,
+.reward-card small {
   color: #cbd5e1;
-  background: rgba(2, 6, 23, 0.4);
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
-.source-note {
-  grid-column: 1 / 3;
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  padding: 0 10px;
-  color: #94a3b8;
-  font-size: 12px;
+.reward-card {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-height: 158px;
+  padding: 14px;
 }
 
-@media (max-width: 980px) {
-  .play-layout {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(360px, 1fr) auto auto 34px;
-  }
-
-  .side-panel,
-  .control-panel,
-  .deck-strip,
-  .source-note {
-    grid-column: 1;
-  }
-
-  .side-panel {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.reward-card.attack {
+  border-color: rgba(248, 113, 113, 0.5);
 }
 
-@media (max-width: 720px) {
-  .app-shell {
-    padding: 10px;
+.reward-card.skill {
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+.reward-card.command {
+  border-color: rgba(167, 139, 250, 0.58);
+}
+
+.companion-card:hover,
+.reward-card:hover,
+.result-flow button:hover,
+.combat-result-banner button:hover {
+  border-color: rgba(251, 191, 36, 0.8);
+  filter: brightness(1.08);
+}
+
+.result-flow {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.result-flow svg {
+  color: #fbbf24;
+}
+
+.result-flow button {
+  min-width: 128px;
+  padding: 0 16px;
+}
+
+@media (max-width: 1180px) {
+  .battle-layout {
+    grid-template-columns: minmax(0, 1fr) 248px;
   }
 
-  .game-stage {
-    grid-template-rows: 40px minmax(0, 1fr);
-  }
-
-  .play-layout {
-    padding: 8px;
-  }
-
-  .companion-grid,
-  .reward-grid {
-    grid-template-columns: minmax(0, 1fr);
+  .flow-overlay {
+    right: 272px;
   }
 
   .hand-row {
-    grid-template-columns: repeat(5, 154px);
+    grid-template-columns: repeat(5, 146px);
   }
 }
